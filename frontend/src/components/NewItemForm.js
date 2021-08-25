@@ -57,7 +57,7 @@ class NewItemForm extends React.Component {
           </select>
           <input
             onChange={this.handleOnChange}
-            type="text"
+            type="textarea"
             name="description"
             id=""
             value={this.state.description}
