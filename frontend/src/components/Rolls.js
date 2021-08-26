@@ -21,7 +21,7 @@ class Rolls extends React.Component {
   render() {
     return (
       <div>
-        <Link to="/items/new">New Item</Link>
+        <Link to="/rolls/new">New Item</Link>
         <ul> {this.renderItems()}</ul>
       </div>
     );

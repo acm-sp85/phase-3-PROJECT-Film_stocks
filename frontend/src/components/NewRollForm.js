@@ -1,18 +1,16 @@
 import React from "react";
 
-class NewItemForm extends React.Component {
+class NewRollForm extends React.Component {
   state = {
     name: "",
-    category_id: null,
-    categories: [],
-    user: "",
-    users: [],
+    brand_id: null,
+    brands: [],
     description: "",
   };
   componentDidMount() {
-    fetch(`http://localhost:9292/categories`)
+    fetch(`http://localhost:9292/brands`)
       .then((response) => response.json())
-      .then((categories) => this.setState({ categories }));
+      .then((brands) => this.setState({ brands }));
   }
   handleOnChange = (event) => {
     const { name, value } = event.target;
@@ -28,16 +26,20 @@ class NewItemForm extends React.Component {
       },
       body: JSON.stringify({
         name: this.state.name,
-        category_id: this.state.category_id,
+        brand_id: this.state.brand_id,
         description: this.state.description,
       }),
     };
-    fetch("http://localhost:9292/items", config);
+    fetch("http://localhost:9292/rolls", config);
   };
 
-  renderCategories = () => {
-    return this.state.categories.map((category_id) => {
-      return <option value={category_id.id}>{category_id.name}</option>;
+  renderBrands = () => {
+    return this.state.brands.map((brand_id) => {
+      return (
+        <option value={brand_id.id} key={brand_id.id}>
+          {brand_id.name}
+        </option>
+      );
     });
   };
 
@@ -52,8 +54,8 @@ class NewItemForm extends React.Component {
             id=""
             value={this.state.name}
           />
-          <select onChange={this.handleOnChange} name="category_id" id="">
-            {this.renderCategories()}
+          <select onChange={this.handleOnChange} name="brand_id" id="">
+            {this.renderBrands()}
           </select>
           <input
             onChange={this.handleOnChange}
@@ -69,4 +71,4 @@ class NewItemForm extends React.Component {
   }
 }
 
-export default NewItemForm;
+export default NewRollForm;
