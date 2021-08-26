@@ -1,14 +1,18 @@
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Rolls from "./components/Rolls";
 import NewRollForm from "./components/NewRollForm";
+import Home from "./components/Home";
+import RollsContainer from "./containers/RollsContainer";
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/rolls" component={Rolls} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/rolls" component={RollsContainer} />
         <Route exact path="/rolls/new" component={NewRollForm} />
+        {/* <Route exact path="/rolls/details" component={RollDetails} /> */}
+        {/* <Route exact path="/update" component={UpdateRollForm} />*/}
       </Switch>
     </Router>
   );

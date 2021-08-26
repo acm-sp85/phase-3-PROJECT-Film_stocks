@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Roll from "./Roll";
 
 class Rolls extends React.Component {
   state = {
@@ -21,8 +21,8 @@ class Rolls extends React.Component {
   render() {
     return (
       <div>
-        <Link to="/rolls/new">New Item</Link>
-        <ul> {this.renderItems()}</ul>
+        {/* <ul> {this.renderItems()}</ul> */}
+        <Roll info={this.state.rolls} />
       </div>
     );
   }
