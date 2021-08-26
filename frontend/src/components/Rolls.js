@@ -1,20 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-class Items extends React.Component {
+class Rolls extends React.Component {
   state = {
-    items: [],
+    rolls: [],
   };
 
   componentDidMount() {
-    fetch(`http://localhost:9292/items`)
+    fetch(`http://localhost:9292/rolls`)
       .then((response) => response.json())
-      .then((items) => this.setState({ items }));
+      .then((rolls) => this.setState({ rolls }));
   }
 
   renderItems = () => {
-    return this.state.items.map((item) => {
-      return <li key={item.id}>{item.name}</li>;
+    return this.state.rolls.map((roll) => {
+      return <li key={roll.id}>{roll.name}</li>;
     });
   };
 
@@ -28,4 +28,4 @@ class Items extends React.Component {
   }
 }
 
-export default Items;
+export default Rolls;
