@@ -6,7 +6,19 @@ class Application
 
     if req.path.match(/rolls/) && req.get?
       rolls = Roll.all
-      return [200, { 'Content-Type' => 'application/json' }, [ rolls.to_json ]]
+      rolls_with_info = rolls.map do |roll|
+          {
+          id: roll.id,
+          name: roll.name,
+          brand: roll.brand.name,
+          format: roll.format.medium,
+          iso: roll.iso,
+          price: roll.price,
+          description: roll.description,
+          img_url: roll.img_url
+        }
+      end
+      return [200, { 'Content-Type' => 'application/json' }, [ rolls_with_info.to_json ]]
 
     elsif req.path.match(/rolls/) && req.post?
       data = JSON.parse req.body.read

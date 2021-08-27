@@ -4,12 +4,20 @@ import Roll from "./Roll";
 class Rolls extends React.Component {
   state = {
     rolls: [],
+    brands: [],
+    formats: [],
   };
 
   componentDidMount() {
     fetch(`http://localhost:9292/rolls`)
       .then((response) => response.json())
-      .then((rolls) => this.setState({ rolls }));
+      .then((rolls) => {
+        const arrayWithAllBrandsRepeated = rolls.map((roll) => roll.brand);
+        const brands = [...new Set(arrayWithAllBrandsRepeated)];
+        const arrayWithAllFormatsRepeated = rolls.map((roll) => roll.format);
+        const formats = [...new Set(arrayWithAllFormatsRepeated)];
+        this.setState({ rolls, brands, formats });
+      });
   }
 
   renderItems = () => {

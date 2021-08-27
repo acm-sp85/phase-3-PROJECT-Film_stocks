@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 class NewRollForm extends React.Component {
   state = {
@@ -44,7 +44,13 @@ class NewRollForm extends React.Component {
         img_url: this.state.img_url,
       }),
     };
-    fetch("http://localhost:9292/rolls", config);
+    fetch("http://localhost:9292/rolls", config)
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.errors) {
+          this.props.history.push("/rolls");
+        }
+      });
   };
 
   renderBrands = () => {
@@ -69,6 +75,9 @@ class NewRollForm extends React.Component {
   render() {
     return (
       <div>
+        <Container>
+          <a href="/">FILMSTOCK DATABASE</a>
+        </Container>
         <form onSubmit={this.handleOnSubmit}>
           <select onChange={this.handleOnChange} name="format_id" id="">
             {this.renderFormats()}
