@@ -26,6 +26,21 @@ class Rolls extends React.Component {
       });
   }
 
+  resetFilters = () => {
+    return (
+      <button
+        key={this.state.id}
+        onClick={() => {
+          this.setState({
+            filteredRolls: this.state.rolls,
+          });
+        }}
+      >
+        ALL
+      </button>
+    );
+  };
+
   renderFormatButtons = () => {
     return this.state.formats.map((format) => {
       return (
@@ -106,6 +121,8 @@ class Rolls extends React.Component {
         {this.renderFormatButtons()}
         <p>FILTER BY ISO:</p>
         {this.renderIsoButtons()}
+        <p>ALL</p>
+        {this.resetFilters()}
         <Roll info={this.state.filteredRolls} />
         {/* {this.renderSelectionButtons("iso")} */}
       </div>
