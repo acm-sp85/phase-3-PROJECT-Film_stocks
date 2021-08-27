@@ -5,7 +5,7 @@ function Roll(props) {
   const roll = props.info.map((roll) => {
     return (
       <Container key={roll.id}>
-        <div key={roll.id} className="">
+        <div key={roll.id} className="" onClick={props.click}>
           <img
             src={roll.img_url}
             alt="error"

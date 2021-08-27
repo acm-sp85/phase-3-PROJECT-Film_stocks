@@ -26,6 +26,22 @@ class Rolls extends React.Component {
       });
   }
 
+  clickOnRoll = async (e) => {
+    console.log(e.target.id);
+    const id = e.target.id;
+    // debugger;
+    console.log(this.props.history);
+    if (this.props.history) {
+      this.props.history.push("/");
+    }
+
+    // fetch(`http://localhost:9292/rolls/${id}`)
+    //   .then((response) => response.json())
+    //   .then((rollDetails) => {
+    //     console.log(rollDetails);
+    //   });
+  };
+
   resetFilters = () => {
     return (
       <button
@@ -123,7 +139,7 @@ class Rolls extends React.Component {
         {this.renderIsoButtons()}
         <p>ALL</p>
         {this.resetFilters()}
-        <Roll info={this.state.filteredRolls} />
+        <Roll info={this.state.filteredRolls} click={this.clickOnRoll} />
         {/* {this.renderSelectionButtons("iso")} */}
       </div>
     );
