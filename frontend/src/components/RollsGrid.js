@@ -1,5 +1,6 @@
 import React from "react";
 import Roll from "./Roll";
+import { Container, Button } from "react-bootstrap";
 
 class Rolls extends React.Component {
   state = {
@@ -21,30 +22,25 @@ class Rolls extends React.Component {
         const formats = [...new Set(arrayWithAllFormatsRepeated)];
         const arrayWithAllIsosRepeated = rolls.map((roll) => roll.iso);
         const isosUnnordered = [...new Set(arrayWithAllIsosRepeated)];
-        const isos = isosUnnordered.sort();
+        const isos = isosUnnordered.sort(function (a, b) {
+          return a - b;
+        });
         this.setState({ rolls, brands, formats, isos, filteredRolls: rolls });
       });
   }
 
-  clickOnRoll = async (e) => {
+  clickOnRoll = (e) => {
     console.log(e.target.id);
     const id = e.target.id;
-    // debugger;
-    console.log(this.props.history);
-    if (this.props.history) {
-      this.props.history.push("/");
-    }
 
-    // fetch(`http://localhost:9292/rolls/${id}`)
-    //   .then((response) => response.json())
-    //   .then((rollDetails) => {
-    //     console.log(rollDetails);
-    //   });
+    if (this.props.history) {
+      this.props.history.push(`/rolls/${id}`);
+    }
   };
 
   resetFilters = () => {
     return (
-      <button
+      <Button
         key={this.state.id}
         onClick={() => {
           this.setState({
@@ -53,14 +49,14 @@ class Rolls extends React.Component {
         }}
       >
         ALL
-      </button>
+      </Button>
     );
   };
 
   renderFormatButtons = () => {
     return this.state.formats.map((format) => {
       return (
-        <button
+        <Button
           key={this.state.id}
           onClick={() => {
             this.setState({ selected: format });
@@ -71,14 +67,14 @@ class Rolls extends React.Component {
           }}
         >
           {format}
-        </button>
+        </Button>
       );
     });
   };
   renderBrandButtons = () => {
     return this.state.brands.map((brand) => {
       return (
-        <button
+        <Button
           key={this.state.id}
           onClick={() => {
             this.setState({ selected: brand });
@@ -89,14 +85,14 @@ class Rolls extends React.Component {
           }}
         >
           {brand}
-        </button>
+        </Button>
       );
     });
   };
   renderIsoButtons = () => {
     return this.state.isos.map((iso) => {
       return (
-        <button
+        <Button
           key={this.state.id}
           onClick={() => {
             this.setState({ selected: iso });
@@ -107,7 +103,7 @@ class Rolls extends React.Component {
           }}
         >
           {iso}
-        </button>
+        </Button>
       );
     });
   };
@@ -130,7 +126,7 @@ class Rolls extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container>
         <p>FILTER BY BRANDS:</p>
         {this.renderBrandButtons()}
         <p>FILTER BY FORMATS:</p>
@@ -141,7 +137,7 @@ class Rolls extends React.Component {
         {this.resetFilters()}
         <Roll info={this.state.filteredRolls} click={this.clickOnRoll} />
         {/* {this.renderSelectionButtons("iso")} */}
-      </div>
+      </Container>
     );
   }
 }

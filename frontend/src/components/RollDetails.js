@@ -14,11 +14,32 @@ class RollDetails extends React.Component {
       });
   }
 
-  handleChange = (event) => {};
+  handleChange = (e) => {};
   handleClickDelete = (e) => {
     const path = this.props.history.location.pathname;
     const array = path.split("/");
     const id = array[array.length - 1];
+    console.log(id);
+
+    fetch(`http://localhost:9292/rolls/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(this.state),
+    })
+      .then((response) => console.log(response))
+      .then((data) => {
+        console.log("deleted");
+        alert(`You deleted ${this.state.roll.name}`);
+        this.props.history.push("/rolls");
+      });
+  };
+
+  handleClickEdit = (e) => {
+    const path = this.props.history.location.pathname;
+    const array = path.split("/");
+    const id = array[array.length - 1];
+    console.log(`Let's edit this roll ${id}`);
+    this.props.history.push(`/rolls/new/${id}`);
   };
 
   render() {
@@ -35,11 +56,13 @@ class RollDetails extends React.Component {
           id={this.state.roll.id}
           className="eq-avatar"
         ></img>
-        <Button variant="outline-primary">EDIT</Button>{" "}
-        <Button variant="outline-primary" onClick={this.handleClick}>
+        <Button variant="outline-primary" onClick={this.handleClickEdit}>
+          EDIT
+        </Button>{" "}
+        <Button variant="outline-primary" onClick={this.handleClickDelete}>
           DELETE
         </Button>{" "}
-        <Button variant="outline-primary" href="/">
+        <Button variant="outline-primary" href="/rolls">
           BACK
         </Button>{" "}
       </Container>

@@ -12,6 +12,7 @@ class NewRollForm extends React.Component {
     img_url: "",
     formats: [],
     brands: [],
+    toUpdate: false,
   };
   componentDidMount() {
     fetch(`http://localhost:9292/brands`)
@@ -21,6 +22,27 @@ class NewRollForm extends React.Component {
     fetch(`http://localhost:9292/formats`)
       .then((response) => response.json())
       .then((formats) => this.setState({ formats }));
+
+    if (this.props.match.params.id) {
+      const id = this.props.match.params.id;
+      console.log(id);
+      fetch(`http://localhost:9292/rolls/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          this.setState({
+            name: data.name,
+            brand_id: data.brand_id,
+            format_id: data.format_id,
+            description: data.description,
+            iso: data.iso,
+            price: data.price,
+            img_url: data.img_url,
+            toUpdate: true,
+          });
+        });
+    }
+
+    debugger;
   }
   handleOnChange = (event) => {
     const { name, value } = event.target;
@@ -29,28 +51,38 @@ class NewRollForm extends React.Component {
   handleOnSubmit = (event) => {
     event.preventDefault();
 
-    const config = {
-      method: "POST",
-      header: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        brand_id: this.state.brand_id,
-        description: this.state.description,
-        iso: this.state.iso,
-        format_id: this.state.format_id,
-        price: this.state.price,
-        img_url: this.state.img_url,
-      }),
-    };
-    fetch("http://localhost:9292/rolls", config)
-      .then((res) => res.json())
-      .then((data) => {
-        if (!data.errors) {
-          this.props.history.push("/rolls");
-        }
-      });
+    if (this.state.toUpdate) {
+      console.log("needs to update");
+      const id = this.props.match.params.id;
+      fetch(`http://localhost:9292/rolls/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(this.state),
+      }).then(this.props.history.push(`/rolls/${id}`));
+    } else {
+      const config = {
+        method: "POST",
+        header: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: this.state.name,
+          brand_id: this.state.brand_id,
+          description: this.state.description,
+          iso: this.state.iso,
+          format_id: this.state.format_id,
+          price: this.state.price,
+          img_url: this.state.img_url,
+        }),
+      };
+      fetch("http://localhost:9292/rolls", config)
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.errors) {
+            this.props.history.push("/rolls");
+          }
+        });
+    }
   };
 
   renderBrands = () => {
@@ -73,6 +105,7 @@ class NewRollForm extends React.Component {
   };
 
   render() {
+    const toUpdate = this.state.toUpdate;
     return (
       <div>
         <Container>
@@ -135,7 +168,7 @@ class NewRollForm extends React.Component {
               value={this.state.img_url}
             />
           </label>
-          <button>Submit</button>
+          {toUpdate ? <button>Update</button> : <button>Submit</button>}
         </form>
       </div>
     );
