@@ -41,8 +41,6 @@ class NewRollForm extends React.Component {
           });
         });
     }
-
-    debugger;
   }
   handleOnChange = (event) => {
     const { name, value } = event.target;
