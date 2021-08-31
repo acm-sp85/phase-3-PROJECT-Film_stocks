@@ -1,6 +1,6 @@
 import React from "react";
 import Roll from "../components/Roll";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Row, Col } from "react-bootstrap";
 
 class Rolls extends React.Component {
   state = {
@@ -38,9 +38,14 @@ class Rolls extends React.Component {
     }
   };
 
+  clickOnHome = () => {
+    this.props.history.push(`/`);
+  };
+
   resetFilters = () => {
     return (
       <Button
+        variant="btn btn-outline-dark btn-sm"
         key={this.state.id}
         onClick={() => {
           this.setState({
@@ -48,7 +53,7 @@ class Rolls extends React.Component {
           });
         }}
       >
-        ALL
+        RESET ALL FILTERS
       </Button>
     );
   };
@@ -57,6 +62,7 @@ class Rolls extends React.Component {
     return this.state.formats.map((format) => {
       return (
         <Button
+          variant="btn btn-outline-dark btn-sm"
           key={this.state.id}
           onClick={() => {
             this.setState({ selected: format });
@@ -75,6 +81,7 @@ class Rolls extends React.Component {
     return this.state.brands.map((brand) => {
       return (
         <Button
+          variant="btn btn-outline-dark btn-sm"
           key={this.state.id}
           onClick={() => {
             this.setState({ selected: brand });
@@ -93,6 +100,7 @@ class Rolls extends React.Component {
     return this.state.isos.map((iso) => {
       return (
         <Button
+          variant="btn btn-outline-dark btn-sm"
           key={this.state.id}
           onClick={() => {
             this.setState({ selected: iso });
@@ -126,18 +134,44 @@ class Rolls extends React.Component {
 
   render() {
     return (
-      <Container>
-        <a href="/">FILMSTOCK DATABASE</a>
-
-        <p>FILTER BY BRANDS:</p>
-        {this.renderBrandButtons()}
-        <p>FILTER BY FORMATS:</p>
-        {this.renderFormatButtons()}
-        <p>FILTER BY ISO:</p>
-        {this.renderIsoButtons()}
-        <p>ALL</p>
-        {this.resetFilters()}
-        <Roll info={this.state.filteredRolls} click={this.clickOnRoll} />
+      <Container className="centered" className="top">
+        <Row>
+          <button
+            onClick={this.clickOnHome}
+            type="button"
+            class="btn btn-outline-dark btn-block"
+          >
+            FILMSTOCK DATABASE
+          </button>
+        </Row>
+        <Row>
+          <Col>
+            <Row>
+              <Col className="col-3">
+                <p>FILTER BY BRANDS:</p>
+              </Col>
+              <Col>{this.renderBrandButtons()}</Col>
+            </Row>
+            <Row>
+              <Col className="col-3">
+                <p>FILTER BY FORMATS:</p>
+              </Col>
+              <Col>{this.renderFormatButtons()}</Col>
+            </Row>
+            <Row>
+              <Col className="col-3">
+                <p> FILTER BY ISO:</p>
+              </Col>
+              <Col>{this.renderIsoButtons()}</Col>
+            </Row>
+            <Row>
+              <Col>{this.resetFilters()}</Col>
+            </Row>
+          </Col>
+        </Row>
+        <Container className="container-fluid" className="rolls-grid">
+          <Roll info={this.state.filteredRolls} click={this.clickOnRoll} />
+        </Container>
         {/* {this.renderSelectionButtons("iso")} */}
       </Container>
     );

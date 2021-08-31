@@ -1,24 +1,11 @@
-/* * {
-  box-sizing: border-box;
-} */
-
-.body {
-  background-color: rgb(255, 255, 255);
-}
-
-.home {
-  margin-top: 0px;
-  width: 100%;
-}
-
-.corpus {
-  margin-top: 10px;
-}
-
-.navbar {
-  height: 60px;
-  background-color: rgb(0, 136, 255);
-  border-radius: 0px;
+.home-card {
+  /* width: 50%; */
+  max-width: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
 }
 
 .column-of-avatars {
@@ -33,61 +20,49 @@
   transition: transform 350ms;
 }
 
-#banner-info {
-  height: 150px;
-}
-.img-banner {
-  max-height: 225px;
-}
-
 .eq-avatar {
   max-height: 125px;
   margin-right: 10px;
 }
-.eq-details {
-}
-
-.eq-card-img {
-  max-height: 200px;
-}
-
-.eq-grid-img {
-  max-height: 75px;
-}
-
-.eq-grid {
-  text-align: center;
-}
 
 .row-of-avatars {
-  /* display: flex;
-  overflow-x: scroll;
-  padding: 15px; */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  grid-auto-rows: minmax(100px, auto);
-}
-
-.components {
-  border-color: rgba(10, 55, 169, 0.077);
-  border-radius: 10px;
-  border-width: 2px;
-  padding: 10px;
-  margin: 5px;
-  padding-right: 0px;
-}
-
-#rows-display {
-  /* margin-top: 5px; */
-}
-
-.row-of-cards::-webkit-scrollbar,
-.row-of-avatars::-webkit-scrollbar {
-  display: none;
+  text-align: center;
+  justify-self: center;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(50px, auto);
 }
 
 .form {
+  margin-left: auto;
   text-align: left;
   max-width: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+/* .align-right {
+  text-align: right;
+} */
+
+.centered {
+  /* background-color: chartreuse; */
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.rolls-grid {
+  margin-top: 50px;
+  /* background-color: darkblue; */
+}
+
+.top {
+  /* background-color: darkorange; */
 }

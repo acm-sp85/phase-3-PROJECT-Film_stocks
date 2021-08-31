@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Form, Button, FormLabel, Row, Col } from "react-bootstrap";
 
 class NewRollForm extends React.Component {
   state = {
@@ -114,68 +114,73 @@ class NewRollForm extends React.Component {
     const toUpdate = this.state.toUpdate;
     return (
       <div>
-        <Container>
-          <a href="/">FILMSTOCK DATABASE</a>
-        </Container>
-        <form onSubmit={this.handleOnSubmit}>
-          <select onChange={this.handleOnChange} name="format_id" id="">
-            {this.renderFormats()}
-          </select>
-          <label>
-            Name:
-            <input
-              onChange={this.handleOnChange}
-              type="text"
-              name="name"
-              id=""
-              value={this.state.name}
-            />
-          </label>
-          <select onChange={this.handleOnChange} name="brand_id" id="">
-            {this.renderBrands()}
-          </select>
-          <label>
-            Description:
-            <input
-              onChange={this.handleOnChange}
-              type="textarea"
-              name="description"
-              id=""
-              value={this.state.description}
-            />
-          </label>
-          <label>
-            ISO:
-            <input
-              onChange={this.handleOnChange}
-              type="textarea"
-              name="iso"
-              id=""
-              value={this.state.iso}
-            />
-          </label>
-          <label>
-            Price:
-            <input
-              onChange={this.handleOnChange}
-              type="textarea"
-              name="price"
-              id=""
-              value={this.state.price}
-            />
-          </label>
-          <label>
-            Image URL:
-            <input
-              onChange={this.handleOnChange}
-              type="textarea"
-              name="img_url"
-              id=""
-              value={this.state.img_url}
-            />
-          </label>
-          {toUpdate ? <button>Update</button> : <button>Submit</button>}
-        </form>
+        <Row>
+          <Col>
+            <a href="/">FILMSTOCK DATABASE</a>
+          </Col>
+          <Col>
+            <Form onSubmit={this.handleOnSubmit} className="form">
+              <Form.Label>
+                Name:
+                <input
+                  onChange={this.handleOnChange}
+                  type="text"
+                  name="name"
+                  id=""
+                  value={this.state.name}
+                />
+              </Form.Label>
+              <select onChange={this.handleOnChange} name="format_id" id="">
+                {this.renderFormats()}
+              </select>
+
+              <select onChange={this.handleOnChange} name="brand_id" id="">
+                {this.renderBrands()}
+              </select>
+              <Form.Label>
+                Description:
+                <input
+                  onChange={this.handleOnChange}
+                  type="textarea"
+                  name="description"
+                  id=""
+                  value={this.state.description}
+                />
+              </Form.Label>
+              <Form.Label>
+                ISO:
+                <input
+                  onChange={this.handleOnChange}
+                  type="textarea"
+                  name="iso"
+                  id=""
+                  value={this.state.iso}
+                />
+              </Form.Label>
+              <Form.Label>
+                Price:
+                <input
+                  onChange={this.handleOnChange}
+                  type="textarea"
+                  name="price"
+                  id=""
+                  value={this.state.price}
+                />
+              </Form.Label>
+              <Form.Label>
+                Image URL:
+                <input
+                  onChange={this.handleOnChange}
+                  type="textarea"
+                  name="img_url"
+                  id=""
+                  value={this.state.img_url}
+                />
+              </Form.Label>
+              {toUpdate ? <button>Update</button> : <button>Submit</button>}
+            </Form>
+          </Col>
+        </Row>
       </div>
     );
   }
