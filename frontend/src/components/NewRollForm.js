@@ -110,77 +110,101 @@ class NewRollForm extends React.Component {
     });
   };
 
+  clickOnHome = () => {
+    this.props.history.push(`/`);
+  };
+
   render() {
     const toUpdate = this.state.toUpdate;
     return (
       <div>
-        <Row>
-          <Col>
-            <a href="/">FILMSTOCK DATABASE</a>
-          </Col>
-          <Col>
-            <Form onSubmit={this.handleOnSubmit} className="form">
-              <Form.Label>
-                Name:
-                <input
-                  onChange={this.handleOnChange}
-                  type="text"
-                  name="name"
-                  id=""
-                  value={this.state.name}
-                />
-              </Form.Label>
-              <select onChange={this.handleOnChange} name="format_id" id="">
-                {this.renderFormats()}
-              </select>
+        <button
+          onClick={this.clickOnHome}
+          type="button"
+          class="btn btn-outline-dark btn-block"
+        >
+          {" "}
+          BACK
+        </button>
+        <Container className="centered" className="top">
+          <Row>
+            <Col></Col>
+            <Col>
+              <Form onSubmit={this.handleOnSubmit} className="form">
+                {toUpdate ? (
+                  <img
+                    src={this.state.img_url}
+                    alt="error"
+                    id={this.state.id}
+                    className="eq-avatar"
+                  ></img>
+                ) : null}
+                <Form.Label>
+                  Name:
+                  <input
+                    onChange={this.handleOnChange}
+                    type="text"
+                    name="name"
+                    id=""
+                    value={this.state.name}
+                  />
+                </Form.Label>
+                <select onChange={this.handleOnChange} name="format_id" id="">
+                  {this.renderFormats()}
+                </select>
 
-              <select onChange={this.handleOnChange} name="brand_id" id="">
-                {this.renderBrands()}
-              </select>
-              <Form.Label>
-                Description:
-                <input
-                  onChange={this.handleOnChange}
-                  type="textarea"
-                  name="description"
-                  id=""
-                  value={this.state.description}
-                />
-              </Form.Label>
-              <Form.Label>
-                ISO:
-                <input
-                  onChange={this.handleOnChange}
-                  type="textarea"
-                  name="iso"
-                  id=""
-                  value={this.state.iso}
-                />
-              </Form.Label>
-              <Form.Label>
-                Price:
-                <input
-                  onChange={this.handleOnChange}
-                  type="textarea"
-                  name="price"
-                  id=""
-                  value={this.state.price}
-                />
-              </Form.Label>
-              <Form.Label>
-                Image URL:
-                <input
-                  onChange={this.handleOnChange}
-                  type="textarea"
-                  name="img_url"
-                  id=""
-                  value={this.state.img_url}
-                />
-              </Form.Label>
-              {toUpdate ? <button>Update</button> : <button>Submit</button>}
-            </Form>
-          </Col>
-        </Row>
+                <select onChange={this.handleOnChange} name="brand_id" id="">
+                  {this.renderBrands()}
+                </select>
+                <Form.Label>
+                  Description:
+                  <input
+                    onChange={this.handleOnChange}
+                    type="textarea"
+                    name="description"
+                    id=""
+                    value={this.state.description}
+                  />
+                </Form.Label>
+                <Form.Label>
+                  ISO:
+                  <input
+                    onChange={this.handleOnChange}
+                    type="textarea"
+                    name="iso"
+                    id=""
+                    value={this.state.iso}
+                  />
+                </Form.Label>
+                <Form.Label>
+                  Price:
+                  <input
+                    onChange={this.handleOnChange}
+                    type="textarea"
+                    name="price"
+                    id=""
+                    value={this.state.price}
+                  />
+                </Form.Label>
+                <Form.Label>
+                  Image URL:
+                  <input
+                    onChange={this.handleOnChange}
+                    type="textarea"
+                    name="img_url"
+                    id=""
+                    value={this.state.img_url}
+                  />
+                </Form.Label>
+                {toUpdate ? (
+                  <Button variant="btn btn-outline-dark btn-sm">Update</Button>
+                ) : (
+                  <Button variant="btn btn-outline-dark btn-sm">submit</Button>
+                )}
+              </Form>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

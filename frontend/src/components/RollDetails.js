@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Button } from "react-bootstrap";
+import { Container, Button, Row, Col } from "react-bootstrap";
 
 class RollDetails extends React.Component {
   state = {
@@ -54,28 +54,42 @@ class RollDetails extends React.Component {
 
   render() {
     return (
-      <Container>
-        <h4>{this.state.roll.name}</h4>
-        <p>{this.state.roll.brand}</p>
-        <p>{this.state.roll.price}</p>
-        <p>{this.state.roll.iso}</p>
-        <p>{this.state.roll.description}</p>
-        <img
-          src={this.state.roll.img_url}
-          alt="error"
-          id={this.state.roll.id}
-          className="eq-avatar"
-        ></img>
-        <Button variant="outline-primary" onClick={this.handleClickEdit}>
-          EDIT
-        </Button>{" "}
-        <Button variant="outline-primary" onClick={this.handleClickDelete}>
-          DELETE
-        </Button>{" "}
-        <Button variant="outline-primary" href="/rolls">
+      <div>
+        <Button variant="btn btn-outline-dark btn-sm" href="/rolls">
           BACK
         </Button>{" "}
-      </Container>
+        <Container className="centered">
+          <Row>
+            <Col>
+              <h4>{this.state.roll.name}</h4>
+              <p>{this.state.roll.brand}</p>
+              <img
+                src={this.state.roll.img_url}
+                alt="error"
+                id={this.state.roll.id}
+                className="eq-avatar"
+              ></img>
+              <p>ISO:{this.state.roll.iso}</p>
+              <p>Price: ${this.state.roll.price}</p>
+            </Col>
+            <Col>
+              <p>{this.state.roll.description}</p>
+            </Col>
+          </Row>
+          <Button
+            variant="btn btn-outline-dark btn-sm"
+            onClick={this.handleClickEdit}
+          >
+            EDIT
+          </Button>{" "}
+          <Button
+            variant="btn btn-outline-danger btn-sm"
+            onClick={this.handleClickDelete}
+          >
+            DELETE
+          </Button>{" "}
+        </Container>
+      </div>
     );
   }
 }

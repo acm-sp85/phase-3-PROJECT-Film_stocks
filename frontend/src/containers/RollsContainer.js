@@ -134,46 +134,47 @@ class Rolls extends React.Component {
 
   render() {
     return (
-      <Container className="centered" className="top">
-        <Row>
-          <button
-            onClick={this.clickOnHome}
-            type="button"
-            class="btn btn-outline-dark btn-block"
-          >
-            FILMSTOCK DATABASE
-          </button>
-        </Row>
-        <Row>
-          <Col>
-            <Row>
-              <Col className="col-3">
-                <p>FILTER BY BRANDS:</p>
-              </Col>
-              <Col>{this.renderBrandButtons()}</Col>
-            </Row>
-            <Row>
-              <Col className="col-3">
-                <p>FILTER BY FORMATS:</p>
-              </Col>
-              <Col>{this.renderFormatButtons()}</Col>
-            </Row>
-            <Row>
-              <Col className="col-3">
-                <p> FILTER BY ISO:</p>
-              </Col>
-              <Col>{this.renderIsoButtons()}</Col>
-            </Row>
-            <Row>
-              <Col>{this.resetFilters()}</Col>
-            </Row>
-          </Col>
-        </Row>
-        <Container className="container-fluid" className="rolls-grid">
-          <Roll info={this.state.filteredRolls} click={this.clickOnRoll} />
+      <div>
+        <button
+          onClick={this.clickOnHome}
+          type="button"
+          class="btn btn-outline-dark btn-block"
+        >
+          BACK
+        </button>
+        <Container className="centered" className="top">
+          <Row></Row>
+          <Row>
+            <Col>
+              <Row>
+                <Col className="col-3">
+                  <p>FILTER BY BRANDS:</p>
+                </Col>
+                <Col>{this.renderBrandButtons()}</Col>
+              </Row>
+              <Row>
+                <Col className="col-3">
+                  <p>FILTER BY FORMATS:</p>
+                </Col>
+                <Col>{this.renderFormatButtons()}</Col>
+              </Row>
+              <Row>
+                <Col className="col-3">
+                  <p> FILTER BY ISO:</p>
+                </Col>
+                <Col>{this.renderIsoButtons()}</Col>
+              </Row>
+              <Row>
+                <Col>{this.resetFilters()}</Col>
+              </Row>
+            </Col>
+          </Row>
+          <Container className="container-fluid" className="rolls-grid">
+            <Roll info={this.state.filteredRolls} click={this.clickOnRoll} />
+          </Container>
+          {/* {this.renderSelectionButtons("iso")} */}
         </Container>
-        {/* {this.renderSelectionButtons("iso")} */}
-      </Container>
+      </div>
     );
   }
 }
