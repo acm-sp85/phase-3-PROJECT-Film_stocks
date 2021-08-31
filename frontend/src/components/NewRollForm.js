@@ -55,7 +55,15 @@ class NewRollForm extends React.Component {
       fetch(`http://localhost:9292/rolls/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(this.state),
+        body: JSON.stringify({
+          name: this.state.name,
+          brand_id: this.state.brand_id,
+          format_id: this.state.format_id,
+          description: this.state.description,
+          iso: this.state.iso,
+          price: this.state.price,
+          img_url: this.state.img_url,
+        }),
       }).then(this.props.history.push(`/rolls/${id}`));
     } else {
       const config = {

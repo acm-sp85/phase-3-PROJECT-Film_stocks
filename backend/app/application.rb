@@ -1,3 +1,4 @@
+
 class Application
 
   def call(env)
@@ -18,21 +19,29 @@ class Application
     }
     return [200, { 'Content-Type' => 'application/json' }, [ roll_with_info.to_json ]]
   elsif @req.path.match(/rolls/) && @req.get?
-      rolls = Roll.all
-      rolls_with_info = rolls.map do |roll|
-        {
-          id: roll.id,
-          name: roll.name,
-          brand: roll.brand.name,
-          format: roll.format.medium,
-          iso: roll.iso,
-          price: roll.price,
-          description: roll.description,
-          img_url: roll.img_url
-        }
-      end
-      return [200, { 'Content-Type' => 'application/json' }, [ rolls_with_info.to_json ]]
-      
+    rolls = Roll.all
+    rolls_with_info = rolls.map do |roll|
+      {
+        id: roll.id,
+        name: roll.name,
+        brand: roll.brand.name,
+        format: roll.format.medium,
+        iso: roll.iso,
+        price: roll.price,
+        description: roll.description,
+        img_url: roll.img_url
+      }
+    end
+    return [200, { 'Content-Type' => 'application/json' }, [ rolls_with_info.to_json ]]
+    
+    
+  elsif @req.path.match(/rolls/) && @req.put?
+    data = JSON.parse @req.body.read
+    roll = Roll.find(params_id)
+
+    roll.update(data)
+    return [200, { 'Content-Type' => 'application/json' }, [ roll.to_json ]]
+
 
 
     elsif @req.path.match(/rolls/) && @req.post?

@@ -14,6 +14,16 @@ class RollDetails extends React.Component {
       });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.roll.id !== this.state.roll.id) {
+      fetch(`http://localhost:9292/rolls/${this.props.match.params.id}`)
+        .then((response) => response.json())
+        .then((roll) => {
+          this.setState({ roll });
+        });
+    }
+  }
+
   handleChange = (e) => {};
   handleClickDelete = (e) => {
     const path = this.props.history.location.pathname;
