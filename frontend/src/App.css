@@ -7,7 +7,9 @@
   margin-right: -50%;
   transform: translate(-50%, -50%);
 }
-
+#text-box {
+  height: 150px;
+}
 .column-of-avatars {
   max-height: 500px;
   margin-right: 10px;

@@ -139,67 +139,86 @@ class NewRollForm extends React.Component {
                     className="eq-avatar"
                   ></img>
                 ) : null}
-                <Form.Label>
-                  Name:
-                  <input
-                    onChange={this.handleOnChange}
-                    type="text"
-                    name="name"
-                    id=""
-                    value={this.state.name}
-                  />
-                </Form.Label>
-                <select onChange={this.handleOnChange} name="format_id" id="">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Name"
+                  name="name"
+                  aria-describedby="basic-addon1"
+                  value={this.state.name}
+                  onChange={this.handleOnChange}
+                ></input>
+                <select
+                  class="form-control"
+                  id=""
+                  name="format_id"
+                  onChange={this.handleOnChange}
+                >
                   {this.renderFormats()}
                 </select>
-
-                <select onChange={this.handleOnChange} name="brand_id" id="">
+                <select
+                  class="form-control"
+                  id=""
+                  name="brand_id"
+                  onChange={this.handleOnChange}
+                >
                   {this.renderBrands()}
                 </select>
+
                 <Form.Label>
-                  Description:
-                  <input
-                    onChange={this.handleOnChange}
-                    type="textarea"
+                  <textarea
+                    class="form-control"
+                    aria-label="With textarea"
                     name="description"
-                    id=""
+                    placeholder="Description"
+                    onChange={this.handleOnChange}
                     value={this.state.description}
-                  />
+                  ></textarea>
                 </Form.Label>
-                <Form.Label>
-                  ISO:
-                  <input
-                    onChange={this.handleOnChange}
-                    type="textarea"
-                    name="iso"
-                    id=""
-                    value={this.state.iso}
-                  />
-                </Form.Label>
-                <Form.Label>
-                  Price:
-                  <input
-                    onChange={this.handleOnChange}
-                    type="textarea"
-                    name="price"
-                    id=""
-                    value={this.state.price}
-                  />
-                </Form.Label>
-                <Form.Label>
-                  Image URL:
-                  <input
-                    onChange={this.handleOnChange}
-                    type="textarea"
-                    name="img_url"
-                    id=""
-                    value={this.state.img_url}
-                  />
-                </Form.Label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="ISO"
+                  aria-describedby="basic-addon1"
+                  value={this.state.iso}
+                  onChange={this.handleOnChange}
+                  name="iso"
+                ></input>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Price"
+                  aria-describedby="basic-addon1"
+                  value={this.state.price}
+                  onChange={this.handleOnChange}
+                  name="price"
+                  id=""
+                ></input>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Image"
+                  name="img_url"
+                  id=""
+                  aria-describedby="basic-addon1"
+                  onChange={this.handleOnChange}
+                  value={this.state.img_url}
+                ></input>
+
                 {toUpdate ? (
-                  <Button variant="btn btn-outline-dark btn-sm">Update</Button>
+                  <Button
+                    variant="btn btn-outline-dark btn-sm"
+                    onClick={this.handleOnSubmit}
+                  >
+                    Update
+                  </Button>
                 ) : (
-                  <Button variant="btn btn-outline-dark btn-sm">submit</Button>
+                  <Button
+                    variant="btn btn-outline-dark btn-sm"
+                    onClick={this.handleOnSubmit}
+                  >
+                    submit
+                  </Button>
                 )}
               </Form>
             </Col>
