@@ -149,7 +149,7 @@ class NewRollForm extends React.Component {
                   onChange={this.handleOnChange}
                 ></input>
                 <select
-                  class="form-control"
+                  class="form-select"
                   id=""
                   name="format_id"
                   onChange={this.handleOnChange}
@@ -157,7 +157,7 @@ class NewRollForm extends React.Component {
                   {this.renderFormats()}
                 </select>
                 <select
-                  class="form-control"
+                  class="form-select"
                   id=""
                   name="brand_id"
                   onChange={this.handleOnChange}

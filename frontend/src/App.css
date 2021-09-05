@@ -22,9 +22,18 @@
   transition: transform 350ms;
 }
 
+.fix {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
 .eq-avatar {
   max-height: 125px;
   margin-right: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .row-of-avatars {

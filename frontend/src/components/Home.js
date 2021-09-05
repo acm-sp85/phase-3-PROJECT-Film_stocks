@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Button, Row } from "react-bootstrap";
+import { Container, Button, Row, Col } from "react-bootstrap";
 import "../App.css";
 
 class Home extends React.Component {
@@ -7,14 +7,16 @@ class Home extends React.Component {
     return (
       <Container className="container-fluid" className="home-card">
         <Row>
-          <Button variant="btn btn-outline-dark" href="rolls">
-            EXPLORE THE DATABASE
-          </Button>{" "}
-        </Row>
-        <Row>
-          <Button variant="btn btn-outline-dark" href="rolls/new">
-            ADD NEW FILMSTOCK
-          </Button>{" "}
+          <Col></Col>
+          <Col>
+            <Button variant="btn btn-outline-dark" href="rolls">
+              EXPLORE THE DATABASE
+            </Button>{" "}
+            <Button variant="btn btn-outline-dark" href="rolls/new">
+              ADD NEW FILMSTOCK
+            </Button>{" "}
+          </Col>
+          <Col></Col>
         </Row>
       </Container>
     );

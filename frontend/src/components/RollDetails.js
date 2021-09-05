@@ -60,6 +60,7 @@ class RollDetails extends React.Component {
         </Button>{" "}
         <Container className="centered">
           <Row>
+            <Col></Col>
             <Col>
               <h4>{this.state.roll.name}</h4>
               <p>{this.state.roll.brand}</p>
@@ -75,19 +76,28 @@ class RollDetails extends React.Component {
             <Col>
               <p>{this.state.roll.description}</p>
             </Col>
+            <Col></Col>
           </Row>
-          <Button
-            variant="btn btn-outline-dark btn-sm"
-            onClick={this.handleClickEdit}
-          >
-            EDIT
-          </Button>{" "}
-          <Button
-            variant="btn btn-outline-danger btn-sm"
-            onClick={this.handleClickDelete}
-          >
-            DELETE
-          </Button>{" "}
+
+          <Row>
+            <Col></Col>
+
+            <Col>
+              <Button
+                variant="btn btn-outline-dark btn-sm"
+                onClick={this.handleClickEdit}
+              >
+                EDIT
+              </Button>{" "}
+              <Button
+                variant="btn btn-outline-danger btn-sm"
+                onClick={this.handleClickDelete}
+              >
+                DELETE
+              </Button>{" "}
+            </Col>
+            <Col></Col>
+          </Row>
         </Container>
       </div>
     );
