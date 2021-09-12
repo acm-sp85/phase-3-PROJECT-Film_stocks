@@ -1,6 +1,9 @@
 import React from "react";
 import { Container, Form, Button, FormLabel, Row, Col } from "react-bootstrap";
 
+const isoValidator = /([1-9]|[0-9][0-9])/g;
+const priceValidator = /([1-9]|[0-9][0-9])/g;
+
 class NewRollForm extends React.Component {
   state = {
     name: "",
@@ -13,6 +16,10 @@ class NewRollForm extends React.Component {
     formats: [],
     brands: [],
     toUpdate: false,
+    iso_valid: false,
+    price_valid: false,
+    form_valid: false,
+    form_errors: "",
   };
   componentDidMount() {
     fetch(`http://localhost:9292/brands`)
@@ -41,10 +48,68 @@ class NewRollForm extends React.Component {
           });
         });
     }
+    if (isoValidator) {
+      console.log(isoValidator.test("1400"));
+    }
   }
   handleOnChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }, () => {
+      this.validateField(name, value);
+    });
+  };
+
+  validateField = (fieldName, value) => {
+    let fieldValidationErrors = this.state.form_errors;
+    let iso_valid = this.state.iso_valid;
+    let price_valid = this.state.price_valid;
+
+    switch (fieldName) {
+      case "iso":
+        if (isoValidator.test(value)) {
+          iso_valid = true;
+          fieldValidationErrors = "ISO valid";
+          console.log("ISO valid");
+        } else {
+          fieldValidationErrors = "ISO needs to be a number";
+          iso_valid = false;
+        }
+        break;
+
+      case "price":
+        if (priceValidator.test(value)) {
+          price_valid = true;
+          console.log("PRICE valid");
+          fieldValidationErrors = "PRICE valid";
+        } else {
+          fieldValidationErrors = "PRICE needs to be a number";
+          price_valid = false;
+        }
+        break;
+
+      default:
+        break;
+    }
+    this.setState(
+      {
+        form_errors: fieldValidationErrors,
+        iso_valid: iso_valid,
+        price_valid: price_valid,
+      },
+      this.validateForm()
+    );
+  };
+
+  validateForm = () => {
+    if (this.state.iso_valid && this.state.price_valid) {
+      this.setState({
+        form_valid: true,
+      });
+    } else {
+      this.setState({
+        form_valid: false,
+      });
+    }
   };
   handleOnSubmit = (event) => {
     event.preventDefault();
