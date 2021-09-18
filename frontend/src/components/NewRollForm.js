@@ -1,8 +1,12 @@
 import React from "react";
 import { Container, Form, Button, FormLabel, Row, Col } from "react-bootstrap";
 
-const isoValidator = /([1-9]|[0-9][0-9])/g;
-const priceValidator = /([1-9]|[0-9][0-9])/g;
+const isoValidator =
+  /^(-?(0|[1-9]\d*)?(\.\d+)?(?<=\d)(e-?(0|[1-9]\d*))?|0x[0-9a-f]+)$/;
+const priceValidator =
+  /^(-?(0|[1-9]\d*)?(\.\d+)?(?<=\d)(e-?(0|[1-9]\d*))?|0x[0-9a-f]+)$/;
+// const priceValidator = /([1-9]|[0-9][0-9])/;
+// const isoValidator = /([1-9]|[0-9][0-9])/;
 
 class NewRollForm extends React.Component {
   state = {
@@ -16,9 +20,8 @@ class NewRollForm extends React.Component {
     formats: [],
     brands: [],
     toUpdate: false,
-    iso_valid: false,
-    price_valid: false,
-    form_valid: false,
+    iso_valid: true,
+    price_valid: true,
     form_errors: "",
   };
   componentDidMount() {
@@ -48,9 +51,6 @@ class NewRollForm extends React.Component {
           });
         });
     }
-    if (isoValidator) {
-      console.log(isoValidator.test("1400"));
-    }
   }
   handleOnChange = (event) => {
     const { name, value } = event.target;
@@ -66,93 +66,99 @@ class NewRollForm extends React.Component {
 
     switch (fieldName) {
       case "iso":
-        if (isoValidator.test(value)) {
+        const iso = isoValidator.test(value);
+        if (iso) {
           iso_valid = true;
           fieldValidationErrors = "ISO valid";
-          console.log("ISO valid");
+          console.log(value);
+          this.setState({
+            iso_valid: true,
+          });
         } else {
           fieldValidationErrors = "ISO needs to be a number";
           iso_valid = false;
+          console.log("ISO invalid");
+          console.log(value);
+          this.setState({
+            iso_valid: false,
+          });
         }
         break;
 
       case "price":
-        if (priceValidator.test(value)) {
+        const price = priceValidator.test(value);
+        if (price) {
           price_valid = true;
           console.log("PRICE valid");
           fieldValidationErrors = "PRICE valid";
+          this.setState({
+            price_valid: true,
+          });
         } else {
           fieldValidationErrors = "PRICE needs to be a number";
+          console.log("PRICE invalid");
           price_valid = false;
+          this.setState({
+            price_valid: false,
+          });
         }
         break;
 
       default:
-        break;
+        console.log("empty");
     }
-    this.setState(
-      {
-        form_errors: fieldValidationErrors,
-        iso_valid: iso_valid,
-        price_valid: price_valid,
-      },
-      this.validateForm()
-    );
   };
 
-  validateForm = () => {
-    if (this.state.iso_valid && this.state.price_valid) {
-      this.setState({
-        form_valid: true,
-      });
-    } else {
-      this.setState({
-        form_valid: false,
-      });
-    }
-  };
   handleOnSubmit = (event) => {
     event.preventDefault();
 
-    if (this.state.toUpdate) {
-      console.log("needs to update");
-      const id = this.props.match.params.id;
-      fetch(`http://localhost:9292/rolls/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: this.state.name,
-          brand_id: this.state.brand_id,
-          format_id: this.state.format_id,
-          description: this.state.description,
-          iso: this.state.iso,
-          price: this.state.price,
-          img_url: this.state.img_url,
-        }),
-      }).then(this.props.history.push(`/rolls/${id}`));
+    if (
+      this.state.iso_valid &&
+      this.state.price_valid === true &&
+      (this.state.iso != null) & (this.state.price != null)
+    ) {
+      if (this.state.toUpdate) {
+        console.log("needs to update");
+        const id = this.props.match.params.id;
+        fetch(`http://localhost:9292/rolls/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: this.state.name,
+            brand_id: this.state.brand_id,
+            format_id: this.state.format_id,
+            description: this.state.description,
+            iso: this.state.iso,
+            price: this.state.price,
+            img_url: this.state.img_url,
+          }),
+        }).then(this.props.history.push(`/rolls/${id}`));
+      } else {
+        const config = {
+          method: "POST",
+          header: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            name: this.state.name,
+            brand_id: this.state.brand_id,
+            description: this.state.description,
+            iso: this.state.iso,
+            format_id: this.state.format_id,
+            price: this.state.price,
+            img_url: this.state.img_url,
+          }),
+        };
+        fetch("http://localhost:9292/rolls", config)
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.errors) {
+              this.props.history.push("/rolls");
+            }
+          });
+      }
     } else {
-      const config = {
-        method: "POST",
-        header: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          name: this.state.name,
-          brand_id: this.state.brand_id,
-          description: this.state.description,
-          iso: this.state.iso,
-          format_id: this.state.format_id,
-          price: this.state.price,
-          img_url: this.state.img_url,
-        }),
-      };
-      fetch("http://localhost:9292/rolls", config)
-        .then((res) => res.json())
-        .then((data) => {
-          if (!data.errors) {
-            this.props.history.push("/rolls");
-          }
-        });
+      console.log("IMPOSIBLE TO UPDATE");
     }
   };
 
@@ -181,6 +187,7 @@ class NewRollForm extends React.Component {
 
   render() {
     const toUpdate = this.state.toUpdate;
+    const formValid = this.state.form_valid;
     return (
       <div>
         <button
