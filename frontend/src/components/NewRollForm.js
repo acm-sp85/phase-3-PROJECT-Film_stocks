@@ -5,8 +5,6 @@ const isoValidator =
   /^(-?(0|[1-9]\d*)?(\.\d+)?(?<=\d)(e-?(0|[1-9]\d*))?|0x[0-9a-f]+)$/;
 const priceValidator =
   /^(-?(0|[1-9]\d*)?(\.\d+)?(?<=\d)(e-?(0|[1-9]\d*))?|0x[0-9a-f]+)$/;
-// const priceValidator = /([1-9]|[0-9][0-9])/;
-// const isoValidator = /([1-9]|[0-9][0-9])/;
 
 class NewRollForm extends React.Component {
   state = {
@@ -60,7 +58,7 @@ class NewRollForm extends React.Component {
   };
 
   validateField = (fieldName, value) => {
-    let fieldValidationErrors = this.state.form_errors;
+    // let fieldValidationErrors = this.state.form_errors;
     let iso_valid = this.state.iso_valid;
     let price_valid = this.state.price_valid;
 
@@ -69,18 +67,19 @@ class NewRollForm extends React.Component {
         const iso = isoValidator.test(value);
         if (iso) {
           iso_valid = true;
-          fieldValidationErrors = "ISO valid";
+          // fieldValidationErrors = "ISO valid";
           console.log(value);
           this.setState({
             iso_valid: true,
+            form_errors: "",
           });
         } else {
-          fieldValidationErrors = "ISO needs to be a number";
           iso_valid = false;
           console.log("ISO invalid");
           console.log(value);
           this.setState({
             iso_valid: false,
+            form_errors: "ISO needs to be a number",
           });
         }
         break;
@@ -90,15 +89,16 @@ class NewRollForm extends React.Component {
         if (price) {
           price_valid = true;
           console.log("PRICE valid");
-          fieldValidationErrors = "PRICE valid";
+          // fieldValidationErrors = "PRICE valid";
           this.setState({
             price_valid: true,
+            form_errors: "",
           });
         } else {
-          fieldValidationErrors = "PRICE needs to be a number";
           console.log("PRICE invalid");
           price_valid = false;
           this.setState({
+            form_errors: "PRICE needs to be a number",
             price_valid: false,
           });
         }
@@ -200,7 +200,9 @@ class NewRollForm extends React.Component {
         </button>
         <Container className="centered" className="top">
           <Row>
-            <Col></Col>
+            <Col>
+              <h5 className="warning">{this.state.form_errors}</h5>
+            </Col>
             <Col>
               <Form onSubmit={this.handleOnSubmit} className="form">
                 {toUpdate ? (
