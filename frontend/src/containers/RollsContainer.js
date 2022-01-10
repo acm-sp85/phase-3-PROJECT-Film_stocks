@@ -115,22 +115,6 @@ class Rolls extends React.Component {
       );
     });
   };
-  // renderSelectionButtons = (z) => {
-  //   // debugger;
-  //   return this.state.z.map((y) => {
-  //     return (
-  //       <button
-  //         onClick={() => {
-  //           this.setState({ selected: y });
-  //           const filteredRolls = this.state.z.filter((item) => item.y === y);
-  //           this.setState({ filteredRolls });
-  //         }}
-  //       >
-  //         {y}
-  //       </button>
-  //     );
-  //   });
-  // };
 
   render() {
     return (

@@ -7,6 +7,7 @@ class Application
 
   if @req.path.match(/rolls/) && params_id && @req.get?
     roll = Roll.find(params_id)
+    
     roll_with_info =  {
       id: roll.id,
       name: roll.name,
@@ -38,8 +39,8 @@ class Application
   elsif @req.path.match(/rolls/) && @req.put?
     data = JSON.parse @req.body.read
     roll = Roll.find(params_id)
-
     roll.update(data)
+
     return [200, { 'Content-Type' => 'application/json' }, [ roll.to_json ]]
 
 
@@ -47,12 +48,14 @@ class Application
     elsif @req.path.match(/rolls/) && @req.post?
       data = JSON.parse @req.body.read
       roll = Roll.create(data)
+
       return [200, { 'Content-Type' => 'application/json' }, [ roll.to_json ]]
       
     elsif @req.delete?
       id = @req.path_info.split('/rolls/').last
       roll = Roll.find(id)
       roll.delete
+
       return [200, { 'Content-Type' => 'application/json' }, [ {message: "Roll deleted"}.to_json ]]
 
     elsif @req.path.match(/brands/) && @req.get?
